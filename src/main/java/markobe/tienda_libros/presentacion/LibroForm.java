@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 
 @Component
@@ -12,6 +13,8 @@ public class LibroForm extends JFrame {
 
     LibroServicioImp libroServicio;
     private JPanel panel;
+    private JTable tablaLibros;
+    private DefaultTableModel tablaModeloLibros;
 
     @Autowired
     public LibroForm(LibroServicioImp libroServicio){
@@ -31,4 +34,14 @@ public class LibroForm extends JFrame {
         setLocation(x, y);
     }
 
+    //Metodo de la personalizacion de la tabla
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
+        tablaModeloLibros = new DefaultTableModel(0, 5);
+        String [] cabeceros = {"Id", "Libro", "Autor", "Precio", "Existencias"};
+        tablaModeloLibros.setColumnIdentifiers(cabeceros);
+
+        //Instanciar el objeto JTable
+        tablaLibros = new JTable(tablaModeloLibros);
+    }
 }
