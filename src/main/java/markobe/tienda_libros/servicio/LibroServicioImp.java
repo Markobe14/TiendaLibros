@@ -3,9 +3,11 @@ package markobe.tienda_libros.servicio;
 import markobe.tienda_libros.modelo.Libro;
 import markobe.tienda_libros.repositorio.LibroRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class LibroServicioImp implements ILibroServicio{
 
     @Autowired
