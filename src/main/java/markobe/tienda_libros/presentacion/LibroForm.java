@@ -33,7 +33,7 @@ public class LibroForm extends JFrame {
         agregarButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                agregarLibro();
             }
         });
     }
@@ -48,6 +48,42 @@ public class LibroForm extends JFrame {
         int x = (tamanioPantalla.width - getWidth() / 2);
         int y = (tamanioPantalla.height - getHeight() / 2);
         setLocation(x, y);
+    }
+
+    private void agregarLibro(){
+        //Leer los valores del formulario
+        if(libroTexto.getText().equals("")){
+            mostrarMensaje("Proporciona el nombre del Libro");
+            libroTexto.requestFocusInWindow();
+            return;
+        }
+        String nombreLibro = libroTexto.getText();
+        String autor = autorTexto.getText();
+        Double precio = Double.parseDouble(precioTexto.getText());
+        Integer existencias = Integer.parseInt(existenciasTexto.getText());
+
+        // Crear el objeto Libro
+        Libro libro = new Libro(null, nombreLibro, autor, precio, existencias);
+        //libro.setNombreLibro(nombreLibro);
+        //libro.setAutor(autor);
+        //libro.setPrecio(precio);
+        //libro.setExistencias(existencias);
+
+        libroServicio.guardarLibro(libro);
+        mostrarMensaje("Se agrego el Libro correctamente...");
+        limpiarFormulario();
+        listarLibros();
+    }
+
+    private void limpiarFormulario(){
+        libroTexto.setText("");
+        autorTexto.setText("");
+        precioTexto.setText("");
+        existenciasTexto.setText("");
+    }
+
+    private void mostrarMensaje(String mensaje){
+        JOptionPane.showMessageDialog(this, mensaje);
     }
 
     //Metodo de la personalizacion de la tabla
