@@ -27,6 +27,7 @@ public class LibroForm extends JFrame {
     private JButton agregarButton;
     private JButton modificarButton;
     private JButton eliminarButton;
+    private JButton limpiarButton;
     private DefaultTableModel tablaModeloLibros;
 
     @Autowired
@@ -56,6 +57,12 @@ public class LibroForm extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 eliminarLibro();
+            }
+        });
+        limpiarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                limpiarFormulario();
             }
         });
     }
