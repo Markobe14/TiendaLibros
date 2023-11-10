@@ -1,5 +1,6 @@
 package markobe.tienda_libros.presentacion;
 
+import markobe.tienda_libros.modelo.Libro;
 import markobe.tienda_libros.servicio.LibroServicioImp;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -43,5 +44,26 @@ public class LibroForm extends JFrame {
 
         //Instanciar el objeto JTable
         tablaLibros = new JTable(tablaModeloLibros);
+
+        listarLibros();
     }
+
+    private void listarLibros(){
+        //Limpiar la tabla
+        tablaModeloLibros.setRowCount(0);
+        //Obtener los libros
+        var libros = libroServicio.listarLibros();
+        for (Libro libro : libros) {
+            Object [] renglonLibro = {
+                    libro.getIdLibro(),
+                    libro.getNombreLibro(),
+                    libro.getAutor(),
+                    libro.getPrecio(),
+                    libro.getExistencias()
+            };
+            //Agregamos los datos recuperados a la tabla
+            tablaModeloLibros.addRow(renglonLibro);
+        }
+    }
+
 }
