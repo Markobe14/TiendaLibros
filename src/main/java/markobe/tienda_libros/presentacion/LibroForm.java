@@ -46,6 +46,12 @@ public class LibroForm extends JFrame {
                 cargarLibroSeleccionado();
             }
         });
+        modificarButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                modificarLibro();
+            }
+        });
     }
 
     private void iniciarForma() {
@@ -103,6 +109,33 @@ public class LibroForm extends JFrame {
 
             String existencias = tablaLibros.getModel().getValueAt(renglon, 4).toString();
             existenciasTexto.setText(existencias);
+        }
+    }
+
+    private void modificarLibro(){
+        if(idTexto.getText().equals("")){
+            mostrarMensaje("Selecciona un registro");
+        }
+        else{
+            //Verificamos que nombre del libro no sea null
+            if(libroTexto.getText().equals("")){
+                mostrarMensaje("Proporciona el nombre del Libro");
+                libroTexto.requestFocusInWindow();
+                return;
+            }
+            //Llenamos el objeto libro a actualizar
+            int idLibro = Integer.parseInt(idTexto.getText());
+            String nombreLibro = libroTexto.getText();
+            String autor = autorTexto.getText();
+            Double precio = Double.parseDouble(precioTexto.getText());
+            Integer existencias = Integer.parseInt(existenciasTexto.getText());
+
+            Libro libro = new Libro(idLibro, nombreLibro, autor, precio, existencias);
+
+            libroServicio.guardarLibro(libro);
+            mostrarMensaje("Se modifico Libro correctamente");
+            limpiarFormulario();
+            listarLibros();
         }
     }
 
